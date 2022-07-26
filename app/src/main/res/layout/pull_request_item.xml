@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.nishant.pullrequestsviewer.utils.DateUtil" />
+
+        <variable
+            name="model"
+            type="com.nishant.pullrequestsviewer.model.PullRequest" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/size_4"
+        android:elevation="@dimen/size_2"
+        app:cardCornerRadius="@dimen/size_8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/size_4">
+
+            <ImageView
+                android:id="@+id/user_avatar"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/user_avatar_content_desc"
+                android:src="@mipmap/ic_launcher"
+                app:imageUrl="@{model.user!=null ? model.user.imageUrl : null}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.30" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_4"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/username_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textIf="@{model.title}"
+                tools:text="Setup data layer" />
+
+            <TextView
+                android:id="@+id/username_label"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_4"
+                android:layout_marginTop="@dimen/size_2"
+                android:fontFamily="sans-serif"
+                android:text="@string/username_label"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@id/username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:visibleIFNotNullOrBlank="@{model.user != null ? model.user.userName : null}" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_4"
+                android:layout_marginTop="@dimen/size_2"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@id/date_created_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/username_label"
+                app:textIf="@{model.user!= null ? model.user.userName : null}"
+                tools:text="nishantpatil90" />
+
+            <TextView
+                android:id="@+id/date_created_label"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_4"
+                android:layout_marginTop="@dimen/size_2"
+                android:fontFamily="sans-serif"
+                android:text="@string/date_created_label"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@id/date_created"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/username"
+                app:visibleIFNotNullOrBlank="@{model.closedDate}" />
+
+            <TextView
+                android:id="@+id/date_created"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_4"
+                android:layout_marginTop="@dimen/size_2"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@id/date_closed_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/date_created_label"
+                app:textIf="@{DateUtil.INSTANCE.getParsedDate(model.createdDate)}"
+                app:visibleIFNotNullOrBlank="@{model.createdDate}"
+                tools:text="25-06-2022" />
+
+            <TextView
+                android:id="@+id/date_closed_label"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_4"
+                android:layout_marginTop="@dimen/size_2"
+                android:fontFamily="sans-serif"
+                android:text="@string/date_closed_label"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@id/date_closed"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/date_created"
+                app:visibleIFNotNullOrBlank="@{model.closedDate}" />
+
+            <TextView
+                android:id="@+id/date_closed"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_4"
+                android:layout_marginTop="@dimen/size_2"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/username_label"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/date_closed_label"
+                app:textIf="@{DateUtil.INSTANCE.getParsedDate(model.closedDate)}"
+                app:visibleIFNotNullOrBlank="@{model.closedDate}"
+                tools:text="25-06-2022" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

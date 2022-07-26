@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Pull Requests Viewer</string>
+    <string name="user_avatar_content_desc">User avatar</string>
+    <string name="username_label">Username:</string>
+    <string name="date_created_label">Date Created:</string>
+    <string name="date_closed_label">Date Closed:</string>
+    <string name="empty_list_message">There are no closed pull requests yet.</string>
+    <string name="error_message">Something went wrong while getting closed pull Requests. Try again by refreshing.</string>
 </resources>
